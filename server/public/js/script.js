@@ -66,16 +66,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  function copyContact(element) {
+function copyContact(element) {
   const contactText = element.textContent || element.innerText;
-  navigator.clipboard.writeText(contactText)
-    .then(() => {
-      alert('Контакт скопирован: ' + contactText);
-      element.classList.add('contact-highlight');
-    })
-    .catch(err => {
-      console.error('Ошибка при копировании:', err);
-    });
+  if (!navigator.clipboard) {
+    // Fallback для браузеров без поддержки navigator.clipboard
+    const textarea = document.createElement('textarea');
+    textarea.value = contactText;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    alert('Контакт скопирован: ' + contactText);
+  } else {
+    navigator.clipboard.writeText(contactText)
+      .then(() => {
+        alert('Контакт скопирован: ' + contactText);
+      })
+      .catch(err => {
+        console.error('Ошибка при копировании:', err);
+      });
+  }
+  element.classList.add('contact-highlight');
 }
 
   function setRole(role, element) {
