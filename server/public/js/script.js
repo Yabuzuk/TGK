@@ -67,11 +67,16 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function copyContact(element) {
-    const contactText = element.textContent || element.innerText;
-    copyToClipboard(contactText);
-    alert('Контакт скопирован: ' + contactText);
-    element.classList.add('contact-highlight');
-  }
+  const contactText = element.textContent || element.innerText;
+  navigator.clipboard.writeText(contactText)
+    .then(() => {
+      alert('Контакт скопирован: ' + contactText);
+      element.classList.add('contact-highlight');
+    })
+    .catch(err => {
+      console.error('Ошибка при копировании:', err);
+    });
+}
 
   function copyToClipboard(text) {
     const textarea = document.createElement('textarea');
