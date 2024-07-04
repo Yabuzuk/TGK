@@ -10,6 +10,7 @@
   
     <div class="carousel">
         <div class="carousel-images">
+          <!-- Убедитесь, что пути к изображениям верные -->
           <img src="images/5d9b43c0-51f6-4cd9-be6a-7f89fcd5bf5a-5220196.jpeg" alt="Image 1" class="carousel-image active">
           <img src="images/8d9a7048-0054-4057-aac5-f64feb14b997-5220194.jpeg" alt="Image 2" class="carousel-image">
           <img src="images/9c26d898-dc5d-4b88-8361-4f86466aaf12-5220186.jpeg" alt="Image 3" class="carousel-image">
@@ -17,12 +18,11 @@
         </div>
       </div>
       
-    
       <button id="myBtn">+ Добавить заказ</button>
       <div id="myModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <form id="myForm" action="http://yabuzuk-tgk-ea4b.twc1.net/additem" method="post">
+          <form id="myForm" action="https://yabuzuk-tgk-ea4b.twc1.net/additem" method="post">
             <input type="hidden" id="roleInput" name="role">
             <div class="role-buttons">
               <button type="button" class="role-button" onclick="setRole('Отправлю', this)">Отправить</button>
