@@ -1,3 +1,4 @@
+// Серверный код на Node.js с Express и Mongoose
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -12,11 +13,23 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   .catch(err => console.error('Ошибка подключения к MongoDB:', err));
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-const Item = require('./models/item');
+const ItemSchema = new mongoose.Schema({
+  role: String,
+  from: String,
+  to: String,
+  date: Date,
+  price: Number,
+  weight: Number,
+  contact: String,
+  message: String
+});
+
+const Item = mongoose.model('Item', ItemSchema);
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.post('/additem', (req, res) => {
@@ -39,7 +52,6 @@ app.get('/api/items', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-console.log(`Server is configured to run on port ${PORT}`);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
