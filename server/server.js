@@ -1,4 +1,3 @@
-// Серверный код на Node.js с Express и Mongoose
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -8,7 +7,7 @@ const app = express();
 
 app.use(express.static('public'));
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB подключен...'))
   .catch(err => console.error('Ошибка подключения к MongoDB:', err));
 
@@ -40,6 +39,7 @@ app.get('/api/items', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
+console.log(`Server is configured to run on port ${PORT}`);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
