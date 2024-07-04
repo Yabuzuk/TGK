@@ -147,24 +147,12 @@ button:hover {
 color: #3498db; /* Вы можете изменить код цвета на предпочитаемый */
 }
 
-.carousel {
-position: relative;
-width: 100%;
-overflow: hidden;
-}
-
-.carousel-images {
-display: flex;
-transition: transform 0.5s ease;
-}
-
 .carousel-image {
-min-width: 100%;
-transition: opacity 0.5s ease;
-display: none;
+  display: none;
+  width: 100%;
+  height: auto;
 }
 
 .carousel-image.active {
-display: block;
+  display: block;
 }
-
