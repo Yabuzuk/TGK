@@ -102,32 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         element.classList.add('active');
       }
-document.getElementById('myForm').addEventListener('submit', function(e) {
-  e.preventDefault(); // Предотвращаем стандартное поведение отправки формы
 
-  // Создаем новый экземпляр FormData из формы
-  var formData = new FormData(this);
-
-  // Отправляем данные формы на сервер асинхронно
-  fetch('/additem', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-    if (response.ok) {
-      return response.text();
-    } else {
-      throw new Error('Ошибка при отправке формы');
-    }
-  })
-  .then(data => {
-    console.log(data);
-    // Здесь вы можете добавить код для обновления интерфейса или сообщения пользователю
-  })
-  .catch(error => {
-    console.error('Ошибка:', error);
-  });
-});
   
       document.addEventListener('DOMContentLoaded', function() {
     let currentIndex = 0;
