@@ -150,6 +150,7 @@ color: #3498db; /* Вы можете изменить код цвета на п�
 .carousel-image {
   display: none;
   width: 100%;
+  border-radius: 5px;
   height: auto;
 }
 
