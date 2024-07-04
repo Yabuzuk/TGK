@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://80.78.243.39:3000/api/items')
+    fetch('https://yabuzuk-tgk-ea4b.twc1.net:3000/models/item')
       .then(response => response.json())
           .then(items => {
             const itemsContainer = document.getElementById('itemsContainer');
