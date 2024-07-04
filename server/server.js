@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const fs = require('fs'); // Добавлено для работы с файловой системой
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -38,6 +39,21 @@ app.post('/additem', (req, res) => {
       console.error('Ошибка при сохранении:', err);
       res.status(400).send('Ошибка при сохранении данных');
     });
+});
+
+// Добавляем новый маршрут для получения списка изображений
+app.get('/images', (req, res) => {
+  const imagesDirectory = path.join(__dirname, 'public/images');
+  
+  fs.readdir(imagesDirectory, (err, files) => {
+    if (err) {
+      console.error('Ошибка при сканировании папки:', err);
+      res.status(500).send('Ошибка сервера');
+    } else {
+      const imageFiles = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+      res.json(imageFiles);
+    }
+  });
 });
 
 app.get('/additem', (req, res) => {
