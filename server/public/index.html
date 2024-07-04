@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Форма отправки данных о грузоперевозках</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  
+    <div class="carousel">
+        <div class="carousel-images">
+          <img src="images/5d9b43c0-51f6-4cd9-be6a-7f89fcd5bf5a-5220196.jpeg" alt="Image 1" class="carousel-image active">
+          <img src="images/8d9a7048-0054-4057-aac5-f64feb14b997-5220194.jpeg" alt="Image 2" class="carousel-image">
+          <img src="images/9c26d898-dc5d-4b88-8361-4f86466aaf12-5220186.jpeg" alt="Image 3" class="carousel-image">
+          <img src="images/e98aefe3-723a-457d-98c0-f15634b3ecf4-5220185.jpeg" alt="Image 4" class="carousel-image">
+        </div>
+      </div>
+      
+    
+      <button id="myBtn">+ Добавить заказ</button>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <form id="myForm" action="http://80.78.243.39:3000/additem" method="post">
+            <input type="hidden" id="roleInput" name="role">
+            <div class="role-buttons">
+              <button type="button" class="role-button" onclick="setRole('Отправлю', this)">Отправить</button>
+              <button type="button" class="role-button" onclick="setRole('Увезу', this)">Увезти</button>
+            </div>
+            <input type="text" name="from" placeholder="Откуда" required>
+            <input type="text" name="to" placeholder="Куда" required>
+            <input type="date" name="date" required>
+            <input type="number" name="price" placeholder="Цена" required>
+            <input type="number" name="weight" placeholder="Вес" required>
+            <input type="text" name="contact" placeholder="Контакт" required>
+            <textarea name="message" placeholder="Сообщение"></textarea>
+            <button type="submit">Отправить</button>
+          </form>
+        </div>
+      </div>
+      <div class="search-container">
+        <input type="text" id="searchFrom" placeholder="Откуда">
+        <input type="text" id="searchTo" placeholder="Куда">
+      </div>
+      <div id="itemsContainer"></div>
+  <script src="js/script.js"></script>
+</body>
+</html>
