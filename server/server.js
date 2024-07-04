@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.static('public'));
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB подключен...'))
   .catch(err => console.error('Ошибка подключения к MongoDB:', err));
 
