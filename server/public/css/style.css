@@ -112,7 +112,7 @@ button:hover {
   justify-content: space-between;
   margin-bottom: 20px;
   padding: 9px;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .role-button {
   flex: 1;
@@ -120,7 +120,7 @@ button:hover {
   background-color: var(--tg-blue);
   color: white;
   padding: 9px;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .role-button:last-child {
   margin-right: 0;
