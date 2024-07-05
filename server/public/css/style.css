@@ -7,10 +7,10 @@
   --contact-highlight-color: #3498db; /* Цвет выделения контакта */
 }
 body {
-  background-color: var(--tg-background);
+  background-color: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  color: #000;
+  color: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
   margin: 0;
   padding: 20px;
   max-width: 340px;
