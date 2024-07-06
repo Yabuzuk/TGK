@@ -15,7 +15,8 @@
     "express": "^4.19.2",
     "mongoose": "^8.4.4",
     "passport": "^0.4.1",
-    "passport-telegram-official": "^2.0.1"
+    "passport-telegram-official": "^2.0.1",
+    "express-session": "^1.17.1
 }
         },
         
