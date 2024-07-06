@@ -65,7 +65,7 @@ User.findOrCreate = async function findOrCreate(profile) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://yabuzuk-tgk-ea4b.twc1.net/auth/google/callback"
+    callbackURL: "https://yabuzuk-tgk-ea4b.twc1.net"
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
