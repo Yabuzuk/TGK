@@ -1,11 +1,72 @@
+Конечно, вот обновленный код `server.js` с добавлением авторизации через Telegram:
+
+```javascript
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const fs = require('fs'); // Добавлено для работы с файловой системой
+const fs = require('fs');
+const passport = require('passport');
+const TelegramStrategy = require('passport-telegram-official').Strategy;
+const session = require('express-session');
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Настройка сессии
+app.use(session({
+  secret: 'Buzuchok', // Замените на секретное слово для вашей сессии
+  resave: false,
+  saveUninitialized: true
+}));
+
+// Инициализация Passport и сессии
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Сериализация и десериализация пользователя
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+// Настройка стратегии Telegram
+passport.use(new TelegramStrategy({
+  botToken: process.env.TELEGRAM_BOT_TOKEN, // Используйте переменную окружения для токена
+  passReqToCallback: true
+}, function(req, profile, done) {
+  process.nextTick(function() {
+    return done(null, profile);
+  });
+}));
+
+// Маршруты для аутентификации через Telegram
+app.get('/auth/telegram',
+  passport.authenticate('telegram'),
+  function(req, res) {
+    // Аутентификация прошла успешно, перенаправляем пользователя
+    res.redirect('/');
+  }
+);
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+// Проверка аутентификации перед доступом к защищенным маршрутам
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/auth/telegram');
+}
+
+// Пример защищенного маршрута
+app.get('/profile', ensureAuthenticated, function(req, res){
+  res.json(req.user);
+});
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB подключен...'))
@@ -41,7 +102,6 @@ app.post('/additem', (req, res) => {
     });
 });
 
-// Добавляем новый маршрут для получения списка изображений
 app.get('/images', (req, res) => {
   const imagesDirectory = path.join(__dirname, 'public/images');
   
@@ -78,3 +138,8 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+```
+
+Не забудьте добавить переменные окружения `TELEGRAM_BOT_TOKEN` и `MONGODB_URI` в ваш файл `.env`. Также убедитесь, что вы заменили `'secret'` на ваше собственное секретное слово для сессии. Это обеспечит безопасность сессии в вашем приложении.
+
+Теперь, когда у вас есть код для авторизации через Telegram, вы можете добавить кнопку входа в ваш `index.html` файл, как я показал ранее. Это позволит пользователям входить в систему с использованием их учетных данных Telegram. 
