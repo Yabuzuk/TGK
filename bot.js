@@ -1,9 +1,7 @@
-module.exports = (bot) => {
-  bot.start((ctx) => {
-    ctx.reply('Добро пожаловать! Пожалуйста, авторизуйтесь.');
-  });
+const { Telegraf } = require('telegraf');
 
-  // Здесь можно добавить дополнительные команды и обработчики
+const bot = new Telegraf(process.env.BOT_TOKEN); // Используйте переменную окружения
 
-  bot.launch();
-};
+bot.start((ctx) => ctx.reply('Welcome!'));
+bot.launch();
+
