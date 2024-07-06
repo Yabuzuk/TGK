@@ -2,93 +2,18 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const fs = require('fs');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const session = require('express-session');
+const fs = require('fs'); // Добавлено для работы с файловой системой
 const app = express();
 
-// Подключение к MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
+app.use(express.static(path.join(__dirname, 'public')));
 
-})
-.then(() => console.log('MongoDB подключен...'))
-.catch(err => console.error('Ошибка подключения к MongoDB:', err));
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('MongoDB подключен...'))
+  .catch(err => console.error('Ошибка подключения к MongoDB:', err));
 
-// Настройка сессии
-app.use(session({
-  secret: 'Buzuchok',
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Инициализация Passport
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Сериализация и десериализация пользователя
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
-
-// Модель пользователя для аутентификации через Google
-const UserSchema = new mongoose.Schema({
-  googleId: String,
-  // Дополнительные поля, если необходимо
-});
-
-const User = mongoose.model('User', UserSchema);
-
-// Функция findOrCreate для модели User
-User.findOrCreate = async function findOrCreate(profile) {
-  let user = await User.findOne({ googleId: profile.id });
-  if (!user) {
-    user = new User({
-      googleId: profile.id,
-      // Дополнительные поля, если необходимо
-    });
-    await user.save();
-  }
-  return user;
-};
-
-// Настройка стратегии Passport для Google
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://yabuzuk-tgk-ea4b.twc1.net"
-  },
-  async (accessToken, refreshToken, profile, done) => {
-    try {
-      const user = await User.findOrCreate(profile);
-      done(null, user);
-    } catch (err) {
-      done(err);
-    }
-  }
-));
-
-// Маршруты для аутентификации через Google
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  (req, res) => {
-    // Успешная аутентификация, перенаправление на главную.
-    res.redirect('/');
-  });
-
-// Определение схемы и модели Item
 const ItemSchema = new mongoose.Schema({
   role: String,
   from: String,
@@ -102,7 +27,6 @@ const ItemSchema = new mongoose.Schema({
 
 const Item = mongoose.model('Item', ItemSchema);
 
-// Маршруты для работы с элементами
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -117,6 +41,7 @@ app.post('/additem', (req, res) => {
     });
 });
 
+// Добавляем новый маршрут для получения списка изображений
 app.get('/images', (req, res) => {
   const imagesDirectory = path.join(__dirname, 'public/images');
   
@@ -149,7 +74,6 @@ app.use((err, req, res, next) => {
   res.status(500).send('Что-то сломалось!');
 });
 
-// Запуск сервера
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
