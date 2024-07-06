@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
 const initBot = require('./bot');
-const bot = initBot(process.env.BOT_TOKEN);
+const bot = initBot(TELEGRAM_BOT_TOKEN=6580511339:AAEr-GaoWoHCuh3laUfmD7AqcGqHyomWJno);
  // Импорт функции инициализации бота
 const app = express();
 
