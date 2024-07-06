@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Настройка сессии
 app.use(session({
-  secret: 'секретная строка',
+  secret: 'Buzuchok',
   resave: false,
   saveUninitialized: false
 }));
