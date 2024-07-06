@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Настройка сессии
 app.use(session({
-  secret: 'Buzuchok', // Замените на секретное слово для вашей сессии
+  secret: '251083Buzuchok#43382', // Замените на секретное слово для вашей сессии
   resave: false,
   saveUninitialized: true
 }));
