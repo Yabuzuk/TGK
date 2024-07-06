@@ -4,9 +4,9 @@
     "lockfileVersion": 3,
     "requires": true,
   "scripts": {
-    "start": "node server.js",
+    "start": "node server/server.js",
     "start-bot": "node bot.js",
-    "dev": "nodemon server.js" 
+    "dev": "nodemon server/server.js" 
     "packages": {
         "": {
             "name": "cur",
