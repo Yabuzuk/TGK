@@ -4,6 +4,6 @@ module.exports = {
     script: "server/server.js"
   },{
     name: "bot",
-    script: "bot.js"
+    script: "server/bot.js"
   }]
 };
