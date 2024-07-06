@@ -3,7 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
-const initBot = require('./bot'); // Импорт функции инициализации бота
+const initBot = require('./bot');
+const bot = initBot(process.env.BOT_TOKEN);
+ // Импорт функции инициализации бота
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
