@@ -77,9 +77,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Что-то сломалось!');
 });
 
-// Инициализация и запуск бота
-const bot = initBot(process.env.BOT_TOKEN);
-bot.launch();
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
