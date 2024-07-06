@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const fs = require('fs'); // Добавлено для работы с файловой системой
+const fs = require('fs');
+const { Telegraf } = require('telegraf'); // Добавлено для работы с Telegram Bot API
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -41,10 +42,9 @@ app.post('/additem', (req, res) => {
     });
 });
 
-// Добавляем новый маршрут для получения списка изображений
 app.get('/images', (req, res) => {
   const imagesDirectory = path.join(__dirname, 'public/images');
-  
+
   fs.readdir(imagesDirectory, (err, files) => {
     if (err) {
       console.error('Ошибка при сканировании папки:', err);
@@ -69,10 +69,15 @@ app.get('/api/items', async (req, res) => {
   }
 });
 
+// Обработчик ошибок должен быть последним маршрутом
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Что-то сломалось!');
 });
+
+// Инициализация и запуск бота
+const bot = new Telegraf(process.env.BOT_TOKEN);
+require('./bot')(bot);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
