@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "lockfileVersion": 3,
     "requires": true,
+  "scripts": {
+    "start": "node server.js",
+    "start-bot": "node bot.js",
+    "dev": "nodemon server.js" 
     "packages": {
         "": {
             "name": "cur",
