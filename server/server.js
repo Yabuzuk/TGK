@@ -2,18 +2,69 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const fs = require('fs'); // Добавлено для работы с файловой системой
+const fs = require('fs');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const session = require('express-session');
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
-
+// Подключение к MongoDB
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB подключен...'))
   .catch(err => console.error('Ошибка подключения к MongoDB:', err));
 
+// Настройка сессии
+app.use(session({
+  secret: 'секретная строка',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Инициализация Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Сериализация и десериализация пользователя
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+// Настройка стратегии Passport для Google
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+
+// Маршруты для аутентификации через Google
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Успешная аутентификация, перенаправление на главную.
+    res.redirect('/');
+  });
+
+// Остальная часть сервера
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Определение схемы и модели Item
 const ItemSchema = new mongoose.Schema({
   role: String,
   from: String,
@@ -27,6 +78,7 @@ const ItemSchema = new mongoose.Schema({
 
 const Item = mongoose.model('Item', ItemSchema);
 
+// Маршруты для работы с элементами
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -41,7 +93,6 @@ app.post('/additem', (req, res) => {
     });
 });
 
-// Добавляем новый маршрут для получения списка изображений
 app.get('/images', (req, res) => {
   const imagesDirectory = path.join(__dirname, 'public/images');
   
@@ -74,7 +125,34 @@ app.use((err, req, res, next) => {
   res.status(500).send('Что-то сломалось!');
 });
 
+// Запуск сервера
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// Модель пользователя для аутентификации через Google
+const UserSchema = new mongoose.Schema({
+  googleId: String,
+  // Дополнительные поля, если необходимо
+});
+
+const User = mongoose.model('User', UserSchema);
+
+// Функция findOrCreate для модели User
+User.findOrCreate = function findOrCreate(profile, cb){
+  User.findOne({ googleId: profile.id }, function(err, user) {
+    if (!user) {
+      user = new User({
+        googleId: profile.id,
+        // Дополнительные поля, если необходимо
+      });
+      user.save(function(err) {
+        if (err) console.log(err);
+        return cb(err, user);
+      });
+    } else {
+      return cb(err, user);
+    }
+  });
+};
