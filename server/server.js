@@ -9,9 +9,12 @@ const session = require('express-session');
 const app = express();
 
 // Подключение к MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB подключен...'))
-  .catch(err => console.error('Ошибка подключения к MongoDB:', err));
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('MongoDB подключен...'))
+.catch(err => console.error('Ошибка подключения к MongoDB:', err));
 
 // Настройка сессии
 app.use(session({
@@ -25,15 +28,39 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Сериализация и десериализация пользователя
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
 });
+
+// Модель пользователя для аутентификации через Google
+const UserSchema = new mongoose.Schema({
+  googleId: String,
+  // Дополнительные поля, если необходимо
+});
+
+const User = mongoose.model('User', UserSchema);
+
+// Функция findOrCreate для модели User
+User.findOrCreate = async function findOrCreate(profile) {
+  let user = await User.findOne({ googleId: profile.id });
+  if (!user) {
+    user = new User({
+      googleId: profile.id,
+      // Дополнительные поля, если необходимо
+    });
+    await user.save();
+  }
+  return user;
+};
 
 // Настройка стратегии Passport для Google
 passport.use(new GoogleStrategy({
@@ -41,10 +68,13 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "https://yabuzuk-tgk-ea4b.twc1.net/auth/google/callback"
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      const user = await User.findOrCreate(profile);
+      done(null, user);
+    } catch (err) {
+      done(err);
+    }
   }
 ));
 
@@ -54,15 +84,10 @@ app.get('/auth/google',
 
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
+  (req, res) => {
     // Успешная аутентификация, перенаправление на главную.
     res.redirect('/');
   });
-
-// Остальная часть сервера
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 // Определение схемы и модели Item
 const ItemSchema = new mongoose.Schema({
@@ -130,29 +155,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-// Модель пользователя для аутентификации через Google
-const UserSchema = new mongoose.Schema({
-  googleId: String,
-  // Дополнительные поля, если необходимо
-});
-
-const User = mongoose.model('User', UserSchema);
-
-// Функция findOrCreate для модели User
-User.findOrCreate = function findOrCreate(profile, cb){
-  User.findOne({ googleId: profile.id }, function(err, user) {
-    if (!user) {
-      user = new User({
-        googleId: profile.id,
-        // Дополнительные поля, если необходимо
-      });
-      user.save(function(err) {
-        if (err) console.log(err);
-        return cb(err, user);
-      });
-    } else {
-      return cb(err, user);
-    }
-  });
-};
