@@ -1,9 +1,8 @@
-module.exports = (bot) => {
-  bot.start((ctx) => {
-    ctx.reply('Добро пожаловать! Пожалуйста, авторизуйтесь.');
-  });
+const { Telegraf } = require('telegraf');
 
-  // Здесь можно добавить дополнительные команды и обработчики
+// Это ваш токен, полученный от BotFather
+const bot = new Telegraf('6580511339:AAEr-GaoWoHCuh3laUfmD7AqcGqHyomWJno');
 
-  bot.launch();
-};
+bot.start((ctx) => ctx.reply('Welcome!'));
+// Добавьте другие команды бота здесь, если необходимо
+bot.launch();
