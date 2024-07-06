@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
-const { Telegraf } = require('telegraf'); // Добавлено для работы с Telegram Bot API
+const initBot = require('./bot'); // Импорт функции инициализации бота
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -76,8 +76,8 @@ app.use((err, req, res, next) => {
 });
 
 // Инициализация и запуск бота
-const bot = new Telegraf(process.env.BOT_TOKEN);
-require('./bot')(bot);
+const bot = initBot(process.env.BOT_TOKEN);
+bot.launch();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
