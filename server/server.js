@@ -1,6 +1,3 @@
-Конечно, вот обновленный код `server.js` с добавлением авторизации через Telegram:
-
-```javascript
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
