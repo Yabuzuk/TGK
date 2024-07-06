@@ -10,6 +10,61 @@ const session = require('express-session');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Настройка сессии
+app.use(session({
+  secret: 'secret', // Замените на секретное слово для вашей сессии
+  resave: false,
+  saveUninitialized: true
+}));
+
+// Инициализация Passport и сессии
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Сериализация и десериализация пользователя
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+// Настройка стратегии Telegram
+passport.use(new TelegramStrategy({
+  botToken: '6580511339:AAEr-GaoWoHCuh3laUfmD7AqcGqHyomWJno', // Ваш токен Telegram бота
+  passReqToCallback: true
+}, function(req, profile, done) {
+  process.nextTick(function() {
+    return done(null, profile);
+  });
+}));
+
+// Маршруты для аутентификации через Telegram
+app.get('/auth/telegram',
+  passport.authenticate('telegram'),
+  function(req, res) {
+    // Аутентификация прошла успешно, перенаправляем пользователя
+    res.redirect('/');
+  }
+);
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+// Проверка аутентификации перед доступом к защищенным маршрутам
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/auth/telegram');
+}
+
+// Пример защищенного маршрута
+app.get('/profile', ensureAuthenticated, function(req, res){
+  res.json(req.user);
+});
+
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB подключен...'))
   .catch(err => console.error('Ошибка подключения к MongoDB:', err));
@@ -77,60 +132,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Что-то сломалось!');
 });
 
-// Настройка сессии
-app.use(session({
-  secret: 'secret', // Замените на секретное слово для вашей сессии
-  resave: false,
-  saveUninitialized: true
-}));
 
-// Инициализация Passport и сессии
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Сериализация и десериализация пользователя
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
-
-// Настройка стратегии Telegram
-passport.use(new TelegramStrategy({
-  botToken: '6580511339:AAEr-GaoWoHCuh3laUfmD7AqcGqHyomWJno', // Ваш токен Telegram бота
-  passReqToCallback: true
-}, function(req, profile, done) {
-  process.nextTick(function() {
-    return done(null, profile);
-  });
-}));
-
-// Маршруты для аутентификации через Telegram
-app.get('/auth/telegram',
-  passport.authenticate('telegram'),
-  function(req, res) {
-    // Аутентификация прошла успешно, перенаправляем пользователя
-    res.redirect('/');
-  }
-);
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
-// Проверка аутентификации перед доступом к защищенным маршрутам
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/auth/telegram');
-}
-
-// Пример защищенного маршрута
-app.get('/profile', ensureAuthenticated, function(req, res){
-  res.json(req.user);
-});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
