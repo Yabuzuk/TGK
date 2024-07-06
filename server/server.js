@@ -10,8 +10,7 @@ const app = express();
 
 // Подключение к MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+
 })
 .then(() => console.log('MongoDB подключен...'))
 .catch(err => console.error('Ошибка подключения к MongoDB:', err));
