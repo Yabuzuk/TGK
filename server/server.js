@@ -2,7 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const fs = require('fs'); // Добавлено для работы с файловой системой
+const fs = require('fs');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -27,6 +29,44 @@ const ItemSchema = new mongoose.Schema({
 
 const Item = mongoose.model('Item', ItemSchema);
 
+// Настройка Passport для использования Google OAuth 2.0
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    // Здесь вы можете сохранить информацию о пользователе в базе данных
+    return done(null, profile);
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Маршруты для авторизации через Google
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Успешная авторизация, перенаправление на главную страницу
+    res.redirect('/');
+  });
+
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -41,7 +81,6 @@ app.post('/additem', (req, res) => {
     });
 });
 
-// Добавляем новый маршрут для получения списка изображений
 app.get('/images', (req, res) => {
   const imagesDirectory = path.join(__dirname, 'public/images');
   
