@@ -935,7 +935,6 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-telegram-official": "^1.1.0",
-    "express-session": "^1.17.2", // Добавленная зависимость
-    "connect-mongo": "^4.6.0" // Добавленная зависимость
-  }
+    "express-session": "^1.17.2",
+    "connect-mongo": "^4.6.0" 
 }
