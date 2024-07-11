@@ -118,7 +118,9 @@ function fetchUserProfile() {
     .catch(error => console.error('Ошибка при получении данных пользователя:', error));
 }
 
+
 fetchUserProfile();
+
 
 
    // Функция для создания карусели изображений
