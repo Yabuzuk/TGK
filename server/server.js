@@ -46,7 +46,7 @@ passport.use(
   new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL || 'https://yabuzuk-tgk-ea4b.twc1.net/auth/google/callback'
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || 'https://your-callback-url.com/auth/google/callback'
   }, async (accessToken, refreshToken, profile, done) => {
     try {
       let user = await User.findOne({ googleId: profile.id });
@@ -92,6 +92,7 @@ passport.deserializeUser(async (id, done) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Определение схемы и модели Item
 const ItemSchema = new mongoose.Schema({
   role: String,
   from: String,
@@ -150,6 +151,8 @@ app.get('/api/items', async (req, res) => {
 // Маршрут для инициации аутентификации через Google
 app.get('/auth/google', (req, res, next) => {
   console.log('Request parameters:', req.query);
+  // Добавлено логирование тела запроса
+  console.log('Request body:', req.body);
   passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
 });
 
