@@ -1,17 +1,41 @@
+// Подключаем необходимые модули
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
-const fs = require('fs');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const helmet = require('helmet');
+const cors = require('cors');
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Настройка безопасности
+app.use(helmet());
+app.use(cors());
 
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB подключен...'))
-  .catch(err => console.error('Ошибка подключения к MongoDB:', err));
+// Подключение к MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+
+}).then(() => {
+  console.log('MongoDB подключен...');
+}).catch(err => {
+  console.error('Ошибка подключения к MongoDB:', err);
+});
+
+// Настройка парсинга тела запроса
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Настройка статических файлов
+app.use(express.static('public'));
+
+// Настройка сессий
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
+}));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -33,7 +57,7 @@ const Item = mongoose.model('Item', ItemSchema);
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://yabuzuk-tgk-ea4b.twc1.net/auth/google/callback"
+    callbackURL: "https://yabuzuk-tgk-ea4b.twc1.net/index.html"
   },
   function(accessToken, refreshToken, profile, done) {
     // Здесь вы можете сохранить информацию о пользователе в базе данных
@@ -108,12 +132,14 @@ app.get('/api/items', async (req, res) => {
   }
 });
 
+// Обработка ошибок
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Что-то сломалось!');
 });
 
+// Запуск сервера
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Сервер запущен на порту ${PORT}`);
 });
