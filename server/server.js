@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const fs = require('fs'); // Добавлено для работы с файловой системой
+const fs = require('fs');
+const crypto = require('crypto'); // Добавлено для проверки подписи
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -40,6 +41,37 @@ app.post('/additem', (req, res) => {
       res.status(400).send('Ошибка при сохранении данных');
     });
 });
+
+// Функция для проверки подписи данных аутентификации Telegram
+function checkTelegramAuth(data) {
+  const secret = crypto.createHash('sha256')
+    .update(process.env.TELEGRAM_BOT_TOKEN)
+    .digest();
+  
+  const checkString = Object.keys(data).filter(key => key !== 'hash')
+    .sort()
+    .map(key => `${key}=${data[key]}`)
+    .join('\n');
+  
+  const hash = crypto.createHmac('sha256', secret)
+    .update(checkString)
+    .digest('hex');
+  
+  return hash === data.hash;
+}
+
+// Маршрут для обработки данных аутентификации Telegram
+app.post('/auth/telegram', (req, res) => {
+  if (checkTelegramAuth(req.body)) {
+    // Аутентификация прошла успешно
+    // Здесь вы можете, например, создать сессию пользователя
+    res.status(200).send('Аутентификация через Telegram успешна.');
+  } else {
+    // Аутентификация не удалась
+    res.status(401).send('Ошибка аутентификации через Telegram.');
+  }
+});
+
 
 // Добавляем новый маршрут для получения списка изображений
 app.get('/images', (req, res) => {
