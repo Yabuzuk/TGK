@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const fs = require('fs'); // Добавлено для работы с файловой системой
+const fs = require('fs');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
@@ -24,8 +24,6 @@ app.use(session({
 }));
 
 // Инициализация Passport
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -41,36 +39,31 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Успешная аутентификация, перенаправляем на главную страницу.
-    res.redirect('/');
-  });
-
 // Стратегия аутентификации через Google
 passport.use(
   new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'https://yabuzuk-tgk-ea4b.twc1.net/auth/google/callback'
-  }, (accessToken, refreshToken, profile, done) => {
-    User.findOne({ googleId: profile.id }).then((existingUser) => {
-      if (existingUser) {
-        done(null, existingUser);
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || 'https://yabuzuk-tgk-ea4b.twc1.net/auth/google/callback'
+  }, async (accessToken, refreshToken, profile, done) => {
+    try {
+      let user = await User.findOne({ googleId: profile.id });
+      if (user) {
+        done(null, user);
       } else {
-        new User({
+        user = await new User({
           googleId: profile.id,
           displayName: profile.displayName,
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
           image: profile.photos[0].value,
           email: profile.emails[0].value
-        })
-        .save()
-        .then(user => done(null, user));
+        }).save();
+        done(null, user);
       }
-    });
+    } catch (err) {
+      done(err);
+    }
   })
 );
 
@@ -79,10 +72,13 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id).then(user => {
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
     done(null, user);
-  });
+  } catch (err) {
+    done(err);
+  }
 });
 
 app.use(express.urlencoded({ extended: true }));
@@ -105,17 +101,17 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.post('/additem', (req, res) => {
-  const newItem = new Item(req.body);
-  newItem.save()
-    .then(item => res.redirect('/'))
-    .catch(err => {
-      console.error('Ошибка при сохранении:', err);
-      res.status(400).send('Ошибка при сохранении данных');
-    });
+app.post('/additem', async (req, res) => {
+  try {
+    const newItem = new Item(req.body);
+    await newItem.save();
+    res.redirect('/');
+  } catch (err) {
+    console.error('Ошибка при сохранении:', err);
+    res.status(400).send('Ошибка при сохранении данных');
+  }
 });
 
-// Добавляем новый маршрут для получения списка изображений
 app.get('/images', (req, res) => {
   const imagesDirectory = path.join(__dirname, 'public/images');
   
