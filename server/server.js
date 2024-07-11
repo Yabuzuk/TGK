@@ -37,8 +37,6 @@ app.use(session({
   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
 }));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 const ItemSchema = new mongoose.Schema({
   role: String,
