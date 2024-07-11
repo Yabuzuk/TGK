@@ -164,6 +164,24 @@ app.get('/auth/google/callback',
     res.redirect('/');
   });
 
+// Маршрут для получения данных текущего пользователя
+app.get('/api/current_user', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({
+      isAuthenticated: true,
+      user: req.user
+    });
+  } else {
+    res.json({ isAuthenticated: false });
+  }
+});
+
+// Маршрут для завершения сессии и выхода
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Что-то сломалось!');
