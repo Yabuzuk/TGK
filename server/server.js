@@ -34,7 +34,9 @@ const UserSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   image: String,
-  email: String
+  email: String,
+  accessToken: String,
+  refreshToken: String
 });
 
 const User = mongoose.model('User', UserSchema);
@@ -49,6 +51,10 @@ passport.use(
     try {
       let user = await User.findOne({ googleId: profile.id });
       if (user) {
+        // Обновите токены, если это необходимо
+        user.accessToken = accessToken;
+        user.refreshToken = refreshToken;
+        await user.save();
         done(null, user);
       } else {
         user = await new User({
@@ -57,7 +63,9 @@ passport.use(
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
           image: profile.photos[0].value,
-          email: profile.emails[0].value
+          email: profile.emails[0].value,
+          accessToken: accessToken,
+          refreshToken: refreshToken
         }).save();
         done(null, user);
       }
