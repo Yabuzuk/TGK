@@ -148,7 +148,10 @@ app.get('/api/items', async (req, res) => {
 });
 
 // Маршрут для инициации аутентификации через Google
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+app.get('/auth/google', (req, res, next) => {
+  console.log('Request parameters:', req.query);
+  passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
+});
 
 // Маршрут для обработки обратного вызова после аутентификации
 app.get('/auth/google/callback', 
