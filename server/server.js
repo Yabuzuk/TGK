@@ -23,7 +23,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
-  cookie: { secure: false } // Установите в true, если используете HTTPS
+  cookie: { secure: true } // Установите в true, если используете HTTPS
 }));
 
 const ItemSchema = new mongoose.Schema({
