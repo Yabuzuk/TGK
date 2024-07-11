@@ -3,13 +3,78 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs'); // Добавлено для работы с файловой системой
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const session = require('express-session');
+
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Подключение к MongoDB
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB подключен...'))
   .catch(err => console.error('Ошибка подключения к MongoDB:', err));
+
+// Настройка сессии
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'a1b2c3d4e5f6g7h8i9j0',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Инициализация Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Модель пользователя
+const UserSchema = new mongoose.Schema({
+  googleId: String,
+  displayName: String,
+  firstName: String,
+  lastName: String,
+  image: String,
+  email: String
+});
+
+const User = mongoose.model('User', UserSchema);
+
+// Стратегия аутентификации через Google
+passport.use(
+  new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: '/auth/google/callback'
+  }, (accessToken, refreshToken, profile, done) => {
+    User.findOne({ googleId: profile.id }).then((existingUser) => {
+      if (existingUser) {
+        done(null, existingUser);
+      } else {
+        new User({
+          googleId: profile.id,
+          displayName: profile.displayName,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          image: profile.photos[0].value,
+          email: profile.emails[0].value
+        })
+        .save()
+        .then(user => done(null, user));
+      }
+    });
+  })
+);
+
+// Сериализация и десериализация пользователя
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id).then(user => {
+    done(null, user);
+  });
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
