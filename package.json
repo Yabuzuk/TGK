@@ -1,33 +1,30 @@
+
 {
-  "name": "cur",
-  "version": "1.0.0",
-  "lockfileVersion": 3,
-  "requires": true,
-  "packages": {
-    "": {
-      "name": "cur",
-      "version": "1.0.0",
-      "license": "ISC",
-      "dependencies": {
-        "body-parser": "^1.20.2",
-        "dotenv": "^16.4.5",
-        "express": "^4.19.2",
-        "mongoose": "^8.4.4",
-        "passport": "^0.7.0",
-        "passport-google-oauth20": "^2.0.0",
-        "passport-telegram-official": "^1.1.0",
-        "express-session": "^1.17.2", 
-        "connect-mongo": "^4.6.0" 
-      }
-    },
-    "node_modules/@mongodb-js/saslprep": {
-      "version": "1.1.7",
-      "resolved": "https://registry.npmjs.org/@mongodb-js/saslprep/-/saslprep-1.1.7.tgz",
-      "integrity": "sha512-dCHW/oEX0KJ4NjDULBo3JiOaK5+6axtpBbS+ao2ZInoAL9/YRQLhXzSNAFz7hP4nzLkIqsfYAK/PDE3+XHny0Q==",
-      "dependencies": {
-        "sparse-bitfield": "^3.0.3"
-      }
-    },
+    "name": "cur",
+    "version": "1.0.0",
+    "lockfileVersion": 3,
+    "requires": true,
+    "packages": {
+        "": {
+            "name": "cur",
+            "version": "1.0.0",
+            "license": "ISC",
+            "dependencies": {
+                "body-parser": "^1.20.2",
+                "dotenv": "^16.4.5",
+                "express": "^4.19.2",
+                "mongoose": "^8.4.4"
+            }
+        },
+        
+        "node_modules/@mongodb-js/saslprep": {
+            "version": "1.1.7",
+            "resolved": "https://registry.npmjs.org/@mongodb-js/saslprep/-/saslprep-1.1.7.tgz",
+            "integrity": "sha512-dCHW/oEX0KJ4NjDULBo3JiOaK5+6axtpBbS+ao2ZInoAL9/YRQLhXzSNAFz7hP4nzLkIqsfYAK/PDE3+XHny0Q==",
+            "dependencies": {
+                "sparse-bitfield": "^3.0.3"
+            }
+        },
         "node_modules/@types/webidl-conversions": {
             "version": "7.0.3",
             "resolved": "https://registry.npmjs.org/@types/webidl-conversions/-/webidl-conversions-7.0.3.tgz",
@@ -926,15 +923,10 @@
                 "node": ">=16"
             }
         }
-  },
-  "dependencies": {
-    "body-parser": "^1.20.2",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "mongoose": "^8.4.4",
-    "passport": "^0.7.0",
-    "passport-google-oauth20": "^2.0.0",
-    "passport-telegram-official": "^1.1.0",
-    "express-session": "^1.17.2",
-    "connect-mongo": "^4.6.0" 
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "mongoose": "^8.4.4"
+    }
 }
