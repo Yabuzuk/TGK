@@ -103,7 +103,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         element.classList.add('active');
       }
-  
+
+function fetchUserProfile() {
+  fetch('/api/current_user')
+    .then(response => response.json())
+    .then(data => {
+      if (data.isAuthenticated) {
+        document.getElementById('profileContainer').style.display = 'block';
+        document.getElementById('userImage').src = data.user.image;
+        document.getElementById('userName').textContent = data.user.displayName;
+        document.getElementById('userEmail').textContent = data.user.email;
+      }
+    })
+    .catch(error => console.error('Ошибка при получении данных пользователя:', error));
+}
+
+fetchUserProfile();
+
+
    // Функция для создания карусели изображений
 function createImageCarousel(images) {
   const carouselContainer = document.getElementById('carouselContainer');
