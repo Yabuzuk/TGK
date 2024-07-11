@@ -24,6 +24,8 @@ app.use(session({
 }));
 
 // Инициализация Passport
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -38,6 +40,13 @@ const UserSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', UserSchema);
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Успешная аутентификация, перенаправляем на главную страницу.
+    res.redirect('/');
+  });
 
 // Стратегия аутентификации через Google
 passport.use(
