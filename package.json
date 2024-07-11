@@ -1,20 +1,23 @@
 {
-    "name": "cur",
-    "version": "1.0.0",
-    "lockfileVersion": 3,
-    "requires": true,
-    "packages": {
-        "": {
-            "name": "cur",
-            "version": "1.0.0",
-            "license": "ISC",
-            "dependencies": {
-                "body-parser": "^1.20.2",
-                "dotenv": "^16.4.5",
-                "express": "^4.19.2",
-                "mongoose": "^8.4.4"
-            }
-        },
+  "name": "cur",
+  "version": "1.0.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "cur",
+      "version": "1.0.0",
+      "license": "ISC",
+      "dependencies": {
+        "body-parser": "^1.20.2",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "mongoose": "^8.4.4",
+        "passport": "^0.7.0",
+        "passport-google-oauth20": "^2.0.0",
+        "passport-telegram-official": "^1.1.0"
+      }
+    },
         "node_modules/@mongodb-js/saslprep": {
             "version": "1.1.7",
             "resolved": "https://registry.npmjs.org/@mongodb-js/saslprep/-/saslprep-1.1.7.tgz",
@@ -921,14 +924,14 @@
                 "node": ">=16"
             }
         }
-    },
-    "dependencies": {
-        "dotenv": "^16.4.5",
-        "express": "^4.19.2",
-        "express-session": "^1.18.0",
-        "mongoose": "^8.4.4",
-        "passport": "^0.7.0",
-        "passport-google-oauth20": "^2.0.0",
-        "passport-telegram-official": "^1.1.0"
-    }
+ },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.4",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-telegram-official": "^1.1.0"
+  }
 }
