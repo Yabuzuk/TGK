@@ -106,8 +106,26 @@ const ItemSchema = new mongoose.Schema({
 
 const Item = mongoose.model('Item', ItemSchema);
 
+// Измененный маршрут для корневого URL
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  if (req.isAuthenticated()) {
+    // Если пользователь аутентифицирован, перенаправляем на главную страницу
+    res.redirect('/main');
+  } else {
+    // Если пользователь не аутентифицирован, отдаем страницу login.html
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+  }
+});
+
+// Новый маршрут для главной страницы
+app.get('/main', (req, res) => {
+  if (req.isAuthenticated()) {
+    // Если пользователь аутентифицирован, отдаем index.html
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  } else {
+    // Если пользователь не аутентифицирован, перенаправляем на страницу входа
+    res.redirect('/');
+  }
 });
 
 app.post('/additem', async (req, res) => {
@@ -158,10 +176,10 @@ app.get('/auth/google', (req, res, next) => {
 
 // Маршрут для обработки обратного вызова после аутентификации
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    // Успешная аутентификация, перенаправляем на главную страницу.
-    res.redirect('/');
+    // Успешная аутентификация, перенаправляем на главную страницу /main.
+    res.redirect('/main');
   });
 
 // Маршрут для получения данных текущего пользователя
