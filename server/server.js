@@ -147,6 +147,17 @@ app.get('/api/items', async (req, res) => {
   }
 });
 
+// Маршрут для инициации аутентификации через Google
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+// Маршрут для обработки обратного вызова после аутентификации
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Успешная аутентификация, перенаправляем на главную страницу.
+    res.redirect('/');
+  });
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Что-то сломалось!');
