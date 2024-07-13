@@ -2,36 +2,56 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Вход через Telegram</title>
+  <title>Форма отправки данных о грузоперевозках</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Добавьте этот метатег для CSP -->
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval';">
   <link rel="stylesheet" href="css/style.css">
-  <script async src="https://telegram.org/js/telegram-widget.js?14" 
-          data-telegram-login="your_bot_username_bot" 
-          data-size="large" 
-          data-onauth="onTelegramAuth(user)" 
-          data-request-access="write"></script>
-  <script type="text/javascript">
-    function onTelegramAuth(user) {
-      fetch('/auth/telegram', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-      }).then(response => {
-        if (response.ok) {
-          window.location.href = '/main';
-        } else {
-          alert('Authentication failed');
-        }
-      });
-    }
-  </script>
 </head>
 <body>
-  <h1>Вход через Telegram</h1>
-  <div id="telegram-login-button"></div>
+  <a href="/login.html">Войти</a>
+  
+   <div id="carouselContainer"></div>
+<br>
+
+  
+      <button id="myBtn">+ Добавить заказ</button>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <form id="myForm" action="https://yabuzuk-tgk-ea4b.twc1.net/additem" method="post">
+            <input type="hidden" id="roleInput" name="role">
+            <div class="role-buttons">
+              <button type="button" class="role-button" onclick="setRole('Отправлю', this)">Отправить</button>
+              <button type="button" class="role-button" onclick="setRole('Увезу', this)">Увезти</button>
+            </div>
+            <input type="text" name="from" placeholder="Откуда" required>
+            <input type="text" name="to" placeholder="Куда" required>
+            <input type="date" name="date" required>
+            <input type="number" name="price" placeholder="Цена" required>
+            <input type="number" name="weight" placeholder="Вес" required>
+            <input type="text" name="contact" placeholder="Контакт" required>
+            <textarea name="message" placeholder="Сообщение"></textarea>
+            <button type="submit">Отправить</button>
+          </form>
+        </div>
+      </div>
+
+<div id="profileContainer" style="display: none;">
+  <img id="userImage" src="" alt="Фото профиля" />
+  <h3 id="userName"></h3>
+  <p id="userEmail"></p>
+  <a href="/logout" class="logout-btn">Выйти</a>
+</div>
+  
+      <div class="search-container">
+        <input type="text" id="searchFrom" placeholder="Откуда">
+        <input type="text" id="searchTo" placeholder="Куда">
+      </div>
+      <div id="itemsContainer"></div>
+  <br>
+
+  
+
+  
+  <script src="js/script.js"></script>
 </body>
 </html>
