@@ -2,10 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const fs = require('fs');
-const crypto = require('crypto');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
+const fs = require('fs'); // Добавлено для работы с файловой системой
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -16,15 +13,6 @@ mongoose.connect(process.env.MONGODB_URI)
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// Настройка сессии
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
-  cookie: { secure: true } // Установите в true, если используете HTTPS
-}));
 
 const ItemSchema = new mongoose.Schema({
   role: String,
@@ -37,16 +25,7 @@ const ItemSchema = new mongoose.Schema({
   message: String
 });
 
-const UserSchema = new mongoose.Schema({
-  telegramId: String,
-  firstName: String,
-  lastName: String,
-  username: String,
-  photoUrl: String
-});
-
 const Item = mongoose.model('Item', ItemSchema);
-const User = mongoose.model('User', UserSchema);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -60,76 +39,6 @@ app.post('/additem', (req, res) => {
       console.error('Ошибка при сохранении:', err);
       res.status(400).send('Ошибка при сохранении данных');
     });
-});
-
-// Функция для проверки подписи данных аутентификации Telegram
-function checkTelegramAuth(data) {
-  const secret = crypto.createHash('sha256')
-    .update(process.env.TELEGRAM_BOT_TOKEN)
-    .digest();
-  
-  const checkString = Object.keys(data).filter(key => key !== 'hash')
-    .sort()
-    .map(key => `${key}=${data[key]}`)
-    .join('\n');
-  
-  const hash = crypto.createHmac('sha256', secret)
-    .update(checkString)
-    .digest('hex');
-  
-  return hash === data.hash;
-}
-
-// Маршрут для обработки данных аутентификации Telegram
-app.post('/auth/telegram', async (req, res) => {
-  if (checkTelegramAuth(req.body)) {
-    // Аутентификация прошла успешно
-    const { id, first_name, last_name, username, photo_url } = req.body;
-
-    // Проверяем, существует ли пользователь в базе данных
-    let user = await User.findOne({ telegramId: id });
-
-    if (!user) {
-      // Если пользователь не существует, создаем нового пользователя
-      user = new User({
-        telegramId: id,
-        firstName: first_name,
-        lastName: last_name,
-        username: username,
-        photoUrl: photo_url
-      });
-      await user.save();
-    }
-
-    // Создаем сессию для пользователя
-    req.session.userId = user._id;
-    res.status(200).send('Аутентификация через Telegram успешна.');
-  } else {
-    // Аутентификация не удалась
-    res.status(401).send('Ошибка аутентификации через Telegram.');
-  }
-});
-
-// Маршрут для получения данных текущего пользователя
-app.get('/api/current_user', async (req, res) => {
-  if (req.session.userId) {
-    const user = await User.findById(req.session.userId);
-    res.json(user);
-  } else {
-    res.status(401).send('Пользователь не аутентифицирован.');
-  }
-});
-
-// Маршрут для выхода пользователя
-app.get('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      console.error('Ошибка при выходе:', err);
-      res.status(500).send('Ошибка при выходе');
-    } else {
-      res.redirect('/');
-    }
-  });
 });
 
 // Добавляем новый маршрут для получения списка изображений
