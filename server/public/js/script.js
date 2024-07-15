@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         leftSection.classList.add('left-section');
         let role = document.createElement('div');
         role.classList.add('role');
+        role.textContent = item.role === 'Отправлю' ? '📦' : '✈️'; // Присваиваем смайлик в зависимости от роли
         leftSection.appendChild(role);
 
         let centerSection = document.createElement('div');
