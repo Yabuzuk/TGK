@@ -45,48 +45,9 @@
     <input type="text" id="searchFrom" placeholder="Откуда">
     <input type="text" id="searchTo" placeholder="Куда">
   </div>
-  <div id="itemsContainer">
-    <div class="container" onclick="toggleContact()">
-      <div class="left-section">
-        <div class="role"></div>
-      </div>
-      <div class="center-section">
-        <div class="MoscowBeijing text-style">Moscow - Beijing</div>
-        <div class="data text-style">10.08.2024</div>
-        <div class="message text-style">Documents and spare parts</div>
-      </div>
-      <div class="right-section">
-        <div class="price text-style">\$20</div>
-        <div class="weight text-style">0.6 Kg</div>
-      </div>
-    </div>
-    <div id="contactInfo" onclick="copyContact()">
-      <p class="contact-text">+71234567890</p>
-    </div>
-  </div>
+  <div id="itemsContainer"></div>
   <br>
   
   <script src="js/script.js"></script>
-  <script>
-    function toggleContact() {
-      var contactInfo = document.getElementById('contactInfo');
-      if (contactInfo.style.display === 'none') {
-        contactInfo.style.display = 'flex';
-      } else {
-        contactInfo.style.display = 'none';
-      }
-    }
-
-    function copyContact() {
-      var contactText = document.querySelector('.contact-text').textContent;
-      navigator.clipboard.writeText(contactText)
-        .then(() => {
-          alert('Контакт скопирован: ' + contactText);
-        })
-        .catch(err => {
-          console.error('Ошибка при копировании: ', err);
-        });
-    }
-  </script>
 </body>
 </html>
