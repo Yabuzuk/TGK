@@ -155,7 +155,7 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #dedede;
+  background: #e8e8e8;
   border-radius: 10px;
   border: 0px black solid;
   padding: 10px;
@@ -169,7 +169,7 @@ button:hover {
   display: none; /* Изначально скрыто */
   flex-direction: column; /* Для вертикального выравнивания текста */
   align-items: center; /* Центрирование текста */
-  background: #dedede; /* Светлый фон для контраста */
+  background: #e8e8e8; /* Светлый фон для контраста */
   border-radius: 10px;
   margin-top: 0; /* Убран отступ сверху */
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
@@ -260,7 +260,7 @@ button:hover {
   display: none; /* Изначально скрыто */
   flex-direction: column; /* Для вертикального выравнивания текста */
   align-items: center; /* Центрирование текста */
-  background: #dedede; /* Светлый фон для контраста */
+  background: #e8e8e8; /* Светлый фон для контраста */
   border-radius: 10px;
   margin-top: 0; /* Убран отступ сверху */
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
