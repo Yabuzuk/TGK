@@ -18,6 +18,11 @@
       height: 100%;
       background-color: rgba(0, 0, 0, 0.8);
       z-index: 1000;
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-100%);
+    }
+    .burger-menu.show {
+      transform: translateX(0);
     }
     .burger-menu a {
       color: white;
@@ -39,6 +44,19 @@
       font-size: 30px;
       cursor: pointer;
     }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+    .overlay.show {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -50,7 +68,7 @@
     <a href="#faq">FAQ</a>
     <a href="#about">О проекте</a>
     <a href="#feedback">Обратная связь</a>
-    <a href="#login">Вход</a>
+    <a href="/login.html">Вход</a>
     <div class="social-buttons">
       <a href="https://twitter.com" target="_blank">Twitter</a>
       <a href="https://facebook.com" target="_blank">Facebook</a>
@@ -58,7 +76,9 @@
     </div>
   </div>
 
-  <a href="/login.html">Войти</a>
+  <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+
+
 
   <div id="carouselContainer"></div>
   <br>
@@ -103,10 +123,13 @@
   <script>
     function toggleMenu() {
       var menu = document.getElementById('burgerMenu');
-      if (menu.style.display === 'flex') {
-        menu.style.display = 'none';
+      var overlay = document.getElementById('overlay');
+      if (menu.classList.contains('show')) {
+        menu.classList.remove('show');
+        overlay.classList.remove('show');
       } else {
-        menu.style.display = 'flex';
+        menu.classList.add('show');
+        overlay.classList.add('show');
       }
     }
   </script>
