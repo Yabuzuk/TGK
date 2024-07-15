@@ -9,49 +9,84 @@
 <body>
   <a href="/login.html">Войти</a>
   
-   <div id="carouselContainer"></div>
-<br>
-
-  
-      <button id="myBtn">+ Добавить заказ</button>
-      <div id="myModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <form id="myForm" action="https://yabuzuk-tgk-ea4b.twc1.net/additem" method="post">
-            <input type="hidden" id="roleInput" name="role">
-            <div class="role-buttons">
-              <button type="button" class="role-button" onclick="setRole('Отправлю', this)">Отправить</button>
-              <button type="button" class="role-button" onclick="setRole('Увезу', this)">Увезти</button>
-            </div>
-            <input type="text" name="from" placeholder="Откуда" required>
-            <input type="text" name="to" placeholder="Куда" required>
-            <input type="date" name="date" required>
-            <input type="number" name="price" placeholder="Цена" required>
-            <input type="number" name="weight" placeholder="Вес" required>
-            <input type="text" name="contact" placeholder="Контакт" required>
-            <textarea name="message" placeholder="Сообщение"></textarea>
-            <button type="submit">Отправить</button>
-          </form>
-        </div>
-      </div>
-
-<div id="profileContainer" style="display: none;">
-  <img id="userImage" src="" alt="Фото профиля" />
-  <h3 id="userName"></h3>
-  <p id="userEmail"></p>
-  <a href="/logout" class="logout-btn">Выйти</a>
-</div>
-  
-      <div class="search-container">
-        <input type="text" id="searchFrom" placeholder="Откуда">
-        <input type="text" id="searchTo" placeholder="Куда">
-      </div>
-      <div id="itemsContainer"></div>
+  <div id="carouselContainer"></div>
   <br>
-
   
+  <button id="myBtn">+ Добавить заказ</button>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form id="myForm" action="https://yabuzuk-tgk-ea4b.twc1.net/additem" method="post">
+        <input type="hidden" id="roleInput" name="role">
+        <div class="role-buttons">
+          <button type="button" class="role-button" onclick="setRole('Отправлю', this)">Отправить</button>
+          <button type="button" class="role-button" onclick="setRole('Увезу', this)">Увезти</button>
+        </div>
+        <input type="text" name="from" placeholder="Откуда" required>
+        <input type="text" name="to" placeholder="Куда" required>
+        <input type="date" name="date" required>
+        <input type="number" name="price" placeholder="Цена" required>
+        <input type="number" name="weight" placeholder="Вес" required>
+        <input type="text" name="contact" placeholder="Контакт" required>
+        <textarea name="message" placeholder="Сообщение"></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+    </div>
+  </div>
 
+  <div id="profileContainer" style="display: none;">
+    <img id="userImage" src="" alt="Фото профиля" />
+    <h3 id="userName"></h3>
+    <p id="userEmail"></p>
+    <a href="/logout" class="logout-btn">Выйти</a>
+  </div>
+  
+  <div class="search-container">
+    <input type="text" id="searchFrom" placeholder="Откуда">
+    <input type="text" id="searchTo" placeholder="Куда">
+  </div>
+  <div id="itemsContainer">
+    <div class="container" onclick="toggleContact()">
+      <div class="left-section">
+        <div class="role"></div>
+      </div>
+      <div class="center-section">
+        <div class="MoscowBeijing text-style">Moscow - Beijing</div>
+        <div class="data text-style">10.08.2024</div>
+        <div class="message text-style">Documents and spare parts</div>
+      </div>
+      <div class="right-section">
+        <div class="price text-style">\$20</div>
+        <div class="weight text-style">0.6 Kg</div>
+      </div>
+    </div>
+    <div id="contactInfo" onclick="copyContact()">
+      <p class="contact-text">+71234567890</p>
+    </div>
+  </div>
+  <br>
   
   <script src="js/script.js"></script>
+  <script>
+    function toggleContact() {
+      var contactInfo = document.getElementById('contactInfo');
+      if (contactInfo.style.display === 'none') {
+        contactInfo.style.display = 'flex';
+      } else {
+        contactInfo.style.display = 'none';
+      }
+    }
+
+    function copyContact() {
+      var contactText = document.querySelector('.contact-text').textContent;
+      navigator.clipboard.writeText(contactText)
+        .then(() => {
+          alert('Контакт скопирован: ' + contactText);
+        })
+        .catch(err => {
+          console.error('Ошибка при копировании: ', err);
+        });
+    }
+  </script>
 </body>
 </html>
