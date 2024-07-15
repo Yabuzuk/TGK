@@ -62,21 +62,15 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(error => console.error('Ошибка:', error));
 
-  function copyContact(element) {
-    const contactText = element.textContent || element.innerText;
-    copyToClipboard(contactText);
-    alert('Контакт скопирован: ' + contactText);
-    element.classList.add('contact-highlight');
-  }
-
-  function copyToClipboard(text) {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textarea);
-  }
+function copyContact() {
+  var contactText = document.querySelector('.contact-text').textContent; // Получаем текст контакта
+  navigator.clipboard.writeText(contactText) // Копируем текст в буфер обмена
+    .then(() => {
+      alert('Контакт скопирован: ' + contactText); // Опционально: показываем сообщение об успешном копировании
+    })
+    .catch(err => {
+      console.error('Ошибка при копировании: ', err); // Опционально: показываем сообщение об ошибке, если она произошла
+    });
 
   function filterMessages() {
     const searchFrom = document.getElementById('searchFrom').value.toLowerCase();
