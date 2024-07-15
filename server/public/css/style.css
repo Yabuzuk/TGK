@@ -169,7 +169,7 @@ button:hover {
   display: none; /* Изначально скрыто */
   flex-direction: column; /* Для вертикального выравнивания текста */
   align-items: center; /* Центрирование текста */
-  background: #eeefef; /* Светлый фон для контраста */
+  background: #b5b8b1; /* Светлый фон для контраста */
   border-radius: 10px;
   margin-top: 0; /* Убран отступ сверху */
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
