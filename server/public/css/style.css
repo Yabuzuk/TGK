@@ -66,31 +66,7 @@ button {
 button:hover {
   background-color: #0099e6;
 }
-.message {
-  background-color: var(--tg-message-in);
-  border-left: 3px solid var(--tg-blue);
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.message:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-.message-preview {
-  font-weight: 100;
-  color: var(--tg-blue);
-}
-.message-content {
-  border-top: 2px solid var(--tg-blue);
-  padding-top: 10px;
-  display: none;
-}
-.message.active .message-content {
-  display: block;
-}
+
 .modal {
   display: none;
   position: fixed;
