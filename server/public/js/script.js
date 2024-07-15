@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         price.textContent = `$${item.price}`;
         let weight = document.createElement('div');
         weight.classList.add('weight', 'text-style');
-        weight.textContent = `${item.weight} Kg`;
+        weight.textContent = `${item.weight} kg`;
         rightSection.appendChild(price);
         rightSection.appendChild(weight);
 
