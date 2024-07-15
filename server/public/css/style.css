@@ -224,13 +224,13 @@ button:hover {
 }
 
 .MoscowBeijing {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
 }
 
 .message {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -240,13 +240,13 @@ button:hover {
 }
 
 .price {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 20px;
 }
 
 .weight {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 20px;
 }
