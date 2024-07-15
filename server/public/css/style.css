@@ -214,7 +214,7 @@ button:hover {
   font-family: Inter;
   line-height: 15px;
   letter-spacing: 0.06px;
-  word-wrap: break-word;
+
   margin-bottom: 5px;
 }
 
@@ -224,7 +224,7 @@ button:hover {
   margin-bottom: 5px;
   text-align: left;
   word-wrap: break-word; /* Перенос слов */
-  word-break: break-all
+  word-break: break-all;
   word-break: break-all; /* Перенос слов */
 }
 
