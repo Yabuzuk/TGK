@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         container.classList.add('container');
         container.addEventListener('click', function() {
           this.nextElementSibling.classList.toggle('active');
+          this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';
         });
 
         let leftSection = document.createElement('div');
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         contactInfo.id = 'contactInfo';
         contactInfo.classList.add('contact-text');
         contactInfo.textContent = item.contact;
+        contactInfo.style.display = 'none'; // Изначально скрыто
         contactInfo.addEventListener('click', function() {
           copyContact(this);
         });
