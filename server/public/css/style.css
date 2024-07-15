@@ -262,17 +262,4 @@ button:hover {
   flex-direction: column; /* Для вертикального выравнивания текста */
   align-items: center; /* Центрирование текста */
   background: #e8e8e8; /* Светлый фон для контраста */
-  border-radius: 10px;
-  margin-top: 0; /* Убран отступ сверху */
-  cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
-}
-
-.contact-text {
-  font-family: Inter;
-  font-size: 18px;
-  line-height: 22px;
-  color: black;
-  text-align: center;
-  margin-bottom: 0px;
-  margin-top: 0;
-}
+  border-radius: 10
