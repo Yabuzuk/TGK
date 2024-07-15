@@ -160,6 +160,7 @@ button:hover {
   border: 0px black solid;
   padding: 10px;
   cursor: pointer;
+
   margin-bottom: 10px; /* Добавлен отступ снизу для контейнера */
   width: 100%; /* Установленная ширина блока */
   max-width: 320px; /* Максимальная ширина блока */
