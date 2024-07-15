@@ -5,13 +5,64 @@
   <title>Форма отправки данных о грузоперевозках</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Стили для бургер-меню */
+    .burger-menu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+    }
+    .burger-menu a {
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
+      font-size: 24px;
+    }
+    .burger-menu .social-buttons a {
+      margin: 5px;
+    }
+    .burger-menu .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+    .burger-icon {
+      font-size: 30px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
+  <div class="burger-icon" onclick="toggleMenu()">☰</div>
+
+  <div id="burgerMenu" class="burger-menu">
+    <span class="close" onclick="toggleMenu()">&times;</span>
+    <a href="#profile">Профиль</a>
+    <a href="#faq">FAQ</a>
+    <a href="#about">О проекте</a>
+    <a href="#feedback">Обратная связь</a>
+    <a href="#login">Вход</a>
+    <div class="social-buttons">
+      <a href="https://twitter.com" target="_blank">Twitter</a>
+      <a href="https://facebook.com" target="_blank">Facebook</a>
+      <a href="https://telegram.org" target="_blank">Telegram</a>
+    </div>
+  </div>
+
   <a href="/login.html">Войти</a>
-  
+
   <div id="carouselContainer"></div>
   <br>
-  
+
   <button id="myBtn">+ Добавить заказ</button>
   <div id="myModal" class="modal">
     <div class="modal-content">
@@ -20,7 +71,7 @@
         <input type="hidden" id="roleInput" name="role">
         <div class="role-buttons">
           <button type="button" class="role-button" onclick="setRole('Отправлю', this)">Отправить</button>
-    <button type="button" class="role-button" onclick="setRole('Увезу', this)">Увезти</button>
+          <button type="button" class="role-button" onclick="setRole('Увезу', this)">Увезти</button>
         </div>
         <input type="text" name="from" placeholder="Откуда" required>
         <input type="text" name="to" placeholder="Куда" required>
@@ -40,14 +91,24 @@
     <p id="userEmail"></p>
     <a href="/logout" class="logout-btn">Выйти</a>
   </div>
-  
+
   <div class="search-container">
     <input type="text" id="searchFrom" placeholder="Откуда">
     <input type="text" id="searchTo" placeholder="Куда">
   </div>
   <div id="itemsContainer"></div>
   <br>
-  
+
   <script src="js/script.js"></script>
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById('burgerMenu');
+      if (menu.style.display === 'flex') {
+        menu.style.display = 'none';
+      } else {
+        menu.style.display = 'flex';
+      }
+    }
+  </script>
 </body>
 </html>
