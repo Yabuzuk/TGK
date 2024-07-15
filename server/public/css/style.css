@@ -224,7 +224,7 @@ button:hover {
 }
 
 .MoscowBeijing {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -240,15 +240,15 @@ button:hover {
 }
 
 .price {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
-  line-height: 28px;
+  line-height: 20px;
 }
 
 .weight {
   font-size: 18px;
   font-weight: 500;
-  line-height: 22px;
+  line-height: 20px;
 }
 
 /* Стили для контактной информации */
