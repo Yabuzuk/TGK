@@ -4,13 +4,13 @@
   --tg-background: #f7f7f7;
   --tg-message-in: #e5e5ea;
   --tg-message-out: #d2f4ff;
-  --contact-highlight-color: #3498db; /* Цвет выделения контакта */
+  --contact-highlight-color: #3498db;
 }
 body {
   background: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
-  color: #000; /* Изменил на стандартный черный цвет текста */
+  color: #000;
   margin: 0;
   padding: 20px;
   max-width: 340px;
@@ -107,7 +107,6 @@ button:hover {
   background-color: #fefefe00;
   margin: 2% auto;
   padding: 20px;
- 
   width: 340px;
 }
 .close {
@@ -157,11 +156,11 @@ button:hover {
 .search-container input[type="text"]:last-child {
   margin-right: 0;
 }
-  .contact-highlight {
-  color: var(--contact-highlight-color); /* Использование переменной для цвета */
+.contact-highlight {
+  color: var(--contact-highlight-color);
 }
 .contact-highlight {
-color: #3498db; /* Вы можете изменить код цвета на предпочитаемый */
+  color: #3498db;
 }
 
 .carousel-image {
@@ -172,5 +171,4 @@ color: #3498db; /* Вы можете изменить код цвета на п�
 }
 
 .carousel-image.active {
-  display: block;
-}
+  display:
