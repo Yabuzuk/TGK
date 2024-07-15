@@ -93,6 +93,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+
+  // Получаем элементы
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+
+// Когда пользователь нажимает на кнопку, открываем модальное окно
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// Когда пользователь нажимает на <span> (x), закрываем модальное окно
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// Когда пользователь нажимает в любом месте за пределами модального окна, закрываем его
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
   document.getElementById('searchFrom').addEventListener('input', filterMessages);
   document.getElementById('searchTo').addEventListener('input', filterMessages);
 });
