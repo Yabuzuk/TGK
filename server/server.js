@@ -20,7 +20,7 @@ const ItemSchema = new mongoose.Schema({
   to: String,
   date: Date,
   price: Number,
-  weight: Number,
+  weight: String,
   contact: String,
   message: String
 });
