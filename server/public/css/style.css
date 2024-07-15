@@ -220,6 +220,7 @@ button:hover {
 .price,
 .Kg {
   margin-bottom: 5px;
+  text-align: left;
 }
 
 .MoscowBeijing {
