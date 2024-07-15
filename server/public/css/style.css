@@ -163,6 +163,8 @@ button:hover {
   margin-bottom: 10px; /* Добавлен отступ снизу для контейнера */
   width: 100%; /* Установленная ширина блока */
   max-width: 320px; /* Максимальная ширина блока */
+  word-wrap: break-word; /* Перенос слов */
+  word-break: break-all; /* Перенос слов */
 }
 #contactInfo {
   display: none; /* Изначально скрыто */
@@ -174,6 +176,8 @@ button:hover {
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
   width: 100%; /* Установленная ширина блока */
   max-width: 320px; /* Максимальная ширина блока */
+  word-wrap: break-word; /* Перенос слов */
+  word-break: break-all; /* Перенос слов */
 }
 .left-section {
   width: 46px;
@@ -221,6 +225,9 @@ button:hover {
 .Kg {
   margin-bottom: 5px;
   text-align: left;
+  word-wrap: break-word; /* Перенос слов */
+  word-break: break-all
+  word-break: break-all; /* Перенос слов */
 }
 
 .MoscowBeijing {
@@ -260,6 +267,10 @@ button:hover {
   border-radius: 10px;
   margin-top: 0; /* Убран отступ сверху */
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
+  width: 100%; /* Установленная ширина блока */
+  max-width: 320px; /* Максимальная ширина блока */
+  word-wrap: break-word; /* Перенос слов */
+  word-break: break-all; /* Перенос слов */
 }
 
 .contact-text {
