@@ -269,9 +269,10 @@ button:hover {
 
 .contact-text {
   font-family: Inter;
-  font-size: 18px;
-  line-height: 22px;
-  color: black;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #4a56f7;
   text-align: center;
   margin-bottom: 0px;
   margin-top: 0;
