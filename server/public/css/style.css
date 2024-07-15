@@ -220,14 +220,20 @@ button:hover {
 
 .MoscowBeijing,
 .message,
-.data,
-.price,
-.Kg {
+.data {
   margin-bottom: 5px;
   text-align: left;
   word-wrap: break-word; /* Перенос слов */
   word-break: break-all
   word-break: break-all; /* Перенос слов */
+}
+
+.price,
+.Kg {
+  margin-bottom: 5px;
+  text-align: left;
+  word-wrap: break-word; /* Перенос слов */
+
 }
 
 .MoscowBeijing {
