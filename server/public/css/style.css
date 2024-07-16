@@ -12,7 +12,7 @@ body {
   font-weight: 300;
   color: #000; /* Изменил на стандартный черный цвет текста */
   margin: 0;
-  padding: 5px; /* Отступы от границ экрана */
+  padding: 20px;
   max-width: 340px;
   margin-left: auto;
   margin-right: auto;
@@ -40,10 +40,9 @@ form {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px; /* Отступ снизу */
+  margin-bottom: 0px;
   border: 1px solid #dfe6e9;
-  width: calc(100% - 10px); /* Учитываем отступы */
-  margin: 5px; /* Отступы от границ экрана */
+  width: 320px;
 }
 input, textarea, button, select {
   font-family: 'Roboto', sans-serif;
@@ -52,9 +51,9 @@ input, textarea, button, select {
   border-radius: 5px;
   border: 1px solid #dfe6e9;
   padding: 7px;
-  width: calc(100% - 14px); /* Учитываем отступы */
+  width: calc(100% - 18px);
   box-sizing: border-box;
-  margin: 5px; /* Отступы от границ экрана */
+  width: 100%;
 }
 button {
   background-color: var(--tg-blue);
@@ -62,8 +61,7 @@ button {
   font-weight: bold;
   border: none;
   cursor: pointer;
-  width: calc(100% - 10px); /* Учитываем отступы */
-  margin: 5px; /* Отступы от границ экрана */
+  width: 100%;
 }
 button:hover {
   background-color: #0099e6;
@@ -85,8 +83,7 @@ button:hover {
   background-color: #fefefe00;
   margin: 2% auto;
   padding: 20px;
-  width: calc(100% - 10px); /* Учитываем отступы */
-  margin: 5px; /* Отступы от границ экрана */
+  width: 320px;
 }
 .close {
   color: #aaa;
@@ -108,7 +105,6 @@ button:hover {
   margin-bottom: 20px;
   padding: 9px;
   font-size: 0.8em;
-  margin: 5px; /* Отступы от границ экрана */
 }
 .role-button {
   flex: 1;
@@ -117,7 +113,6 @@ button:hover {
   color: white;
   padding: 9px;
   font-size: 0.8em;
-  margin: 5px; /* Отступы от границ экрана */
 }
 .role-button:last-child {
   margin-right: 0;
@@ -129,12 +124,10 @@ button:hover {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-  margin: 5px; /* Отступы от границ экрана */
 }
 .search-container input[type="text"] {
   flex: 1;
   margin-right: 5px;
-  margin: 5px; /* Отступы от границ экрана */
 }
 .search-container input[type="text"]:last-child {
   margin-right: 0;
@@ -148,10 +141,9 @@ button:hover {
 
 .carousel-image {
   display: none;
-  width: calc(100% - 10px); /* Учитываем отступы */
+  width: 100%;
   border-radius: 5px;
   height: auto;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 .carousel-image.active {
@@ -168,9 +160,10 @@ button:hover {
   border: 0px black solid;
   padding: 10px;
   cursor: pointer;
-  margin: 5px; /* Отступы от границ экрана */
+
   margin-bottom: 10px; /* Добавлен отступ снизу для контейнера */
-  width: calc(100% - 10px); /* Учитываем отступы */
+  width: 100%; /* Установленная ширина блока */
+  max-width: 320px; /* Максимальная ширина блока */
 }
 #contactInfo {
   display: none; /* Изначально скрыто */
@@ -180,7 +173,8 @@ button:hover {
   border-radius: 10px;
   margin-top: 0; /* Убран отступ сверху */
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
-  width: calc(100% - 10px); /* Учитываем отступы */
+  width: 100%; /* Установленная ширина блока */
+  max-width: 320px; /* Максимальная ширина блока */
 }
 .left-section {
   width: 46px;
@@ -189,14 +183,12 @@ button:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 .right-section {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 .center-section {
@@ -205,7 +197,6 @@ button:hover {
   align-items: flex-start;
   flex: 1; /* Добавлено для предотвращения наложения */
   margin-left: 5px; /* Добавлен отступ слева */
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 .role {
@@ -214,7 +205,6 @@ button:hover {
   height: 46px;
   background: #0C0000;
   border-radius: 9999px;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 .text-style {
@@ -225,7 +215,6 @@ button:hover {
   letter-spacing: 0.06px;
   word-wrap: break-word;
   margin-bottom: 5px;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 .MoscowBeijing,
@@ -235,7 +224,6 @@ button:hover {
 .Kg {
   margin-bottom: 5px;
   text-align: left;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 .MoscowBeijing {
@@ -277,8 +265,6 @@ button:hover {
   border-radius: 10px;
   margin-top: 0; /* Убран отступ сверху */
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
-  width: calc(100% - 10px); /* Учитываем отступы */
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 .contact-text {
@@ -290,14 +276,12 @@ button:hover {
   text-align: center;
   margin-bottom: 0px;
   margin-top: 0;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Muli&display=swap");
 
 * {
   box-sizing: border-box;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 body.no-background {
@@ -309,24 +293,22 @@ body.no-background {
   height: 100vh;
   margin: 0;
   flex-direction: column;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 nav {
   background-color: #fff;
   padding: 20px;
-  width: calc(80px - 10px); /* Учитываем отступы */
+  width: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 3px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: width 0.6s linear;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 nav.active {
-  width: calc(350px - 10px); /* Учитываем отступы */
+  width: 350px;
 }
 
 nav ul {
@@ -337,7 +319,6 @@ nav ul {
   width: 0;
   transition: width 0.6s linear;
   overflow-x: hidden;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 nav.active ul {
@@ -348,7 +329,6 @@ nav ul li {
   transform: rotateY(0deg);
   opacity: 0;
   transition: transform 0.6s linear, opacity 0.6s linear;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 nav.active ul li {
@@ -361,7 +341,6 @@ nav ul a {
   color: #000;
   text-decoration: none;
   margin: 0 10px;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 .icon {
@@ -372,7 +351,6 @@ nav ul a {
   position: relative;
   height: 30px;
   width: 30px;
-  margin: 5px; /* Отступы от границ экрана */
 }
 
 .icon:focus,
