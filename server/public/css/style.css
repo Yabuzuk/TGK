@@ -219,16 +219,13 @@ button:hover {
 
 .MoscowBeijing,
 .message,
-.data {
-  margin-bottom: 20px;
-  text-align: left;
-}
-
+.data,
 .price,
-.Kg {
+.Kg{
   margin-bottom: 5px;
   text-align: left;
 }
+
 
 .MoscowBeijing {
   font-size: 12px;
