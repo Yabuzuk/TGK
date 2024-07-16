@@ -130,25 +130,29 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('searchTo').addEventListener('input', filterMessages);
 });
 
-// Функция для создания карусели изображений
+ // Функция для создания карусели изображений
 function createImageCarousel(images) {
   const carouselContainer = document.getElementById('carouselContainer');
   images.forEach((image, index) => {
-        let imgElement = document.createElement('img');
-    imgElement.src = image;
+    let imgElement = document.createElement('img');
+    imgElement.src = `images/${image}`;
     imgElement.classList.add('carousel-image');
-    if (index === 0) {
-      imgElement.classList.add('active');
-    }
+    if (index === 0) imgElement.classList.add('active');
     carouselContainer.appendChild(imgElement);
   });
 
   let currentIndex = 0;
+  const totalImages = images.length;
   setInterval(() => {
     const images = document.querySelectorAll('.carousel-image');
     images[currentIndex].classList.remove('active');
-    currentIndex = (currentIndex + 1) % images.length;
+    currentIndex = (currentIndex + 1) % totalImages;
     images[currentIndex].classList.add('active');
-  }, 3000); // Меняем изображение каждые 3 секунды
+  }, 3000); // Изменение каждые 3 секунды
 }
 
+// Запрос к серверу для получения списка изображений
+fetch('/images')
+  .then(response => response.json())
+  .then(images => createImageCarousel(images))
+  .catch(error => console.error('Ошибка:', error));
