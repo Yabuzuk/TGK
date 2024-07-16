@@ -290,7 +290,7 @@ body.no-background {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 60vh;
   margin: 0;
   flex-direction: column;
 }
