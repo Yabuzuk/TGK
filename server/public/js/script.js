@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rightSection.classList.add('right-section');
         let price = document.createElement('div');
         price.classList.add('price', 'text-style');
-        price.textContent = `${item.price}`;
+        price.textContent = `${item.price} $`;
         let weight = document.createElement('div');
         weight.classList.add('weight', 'text-style');
         weight.textContent = `${item.weight} kg`;
