@@ -82,7 +82,7 @@ button:hover {
 .modal-content {
   background-color: #fefefe00;
   margin: 2% auto;
-  padding: 20px;
+  padding: 0px;
   width: 340px;
 }
 .close {
