@@ -162,3 +162,24 @@ const toggle = document.getElementById("toggle");
 const nav = document.getElementById("nav");
 
 toggle.addEventListener("click", () => nav.classList.toggle("active"));
+
+async function searchLocation(inputId, suggestionsId) {
+  const query = document.getElementById(inputId).value;
+  if (query.length < 3) {
+    document.getElementById(suggestionsId).innerHTML = '';
+    return;
+  }
+
+  const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`);
+  const data = await response.json();
+
+  const suggestions = data.map(item => `<div onclick="selectSuggestion('${inputId}', '${item.display_name}')">${item.display_name}</div>`).join('');
+  document.getElementById(suggestionsId).innerHTML = suggestions;
+}
+
+function selectSuggestion(inputId, value) {
+  document.getElementById(inputId).value = value;
+  document.getElementById(inputId + 'Suggestions').innerHTML = '';
+}
+
+
