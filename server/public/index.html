@@ -6,10 +6,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <style>
-  
+    /* Стили для бургер-меню */
+    .burger-menu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 340px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-100%);
+    }
+    .burger-menu.show {
+      transform: translateX(0);
+    }
+    .burger-menu a {
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
+      font-size: 24px;
+    }
+    .burger-menu .social-buttons a {
+      margin: 5px;
+    }
+    .burger-menu .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+    .burger-icon {
+      font-size: 30px;
+      cursor: pointer;
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+    .overlay.show {
+      display: block;
+    }
+  </style>
 </head>
 <body>
+  <div class="burger-icon" onclick="toggleMenu()">☰ p2p-Cargo</div>
 
+  <div id="burgerMenu" class="burger-menu">
+    <span class="close" onclick="toggleMenu()">&times;</span>
+    <a href="#profile">Профиль</a>
+    <a href="#faq">FAQ</a>
+    <a href="#about">О проекте</a>
+    <a href="/login.html">Вход</a>
+  </div>
+
+  <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
 
   <div id="carouselContainer"></div>
   <br>
@@ -63,18 +124,9 @@
         overlay.classList.add('show');
       }
     }
+
     document.addEventListener('DOMContentLoaded', function() {
-      function toggleMenu() {
-        var menu = document.getElementById('burgerMenu');
-        var overlay = document.getElementById('overlay');
-        if (menu.classList.contains('show')) {
-          menu.classList.remove('show');
-          overlay.classList.remove('show');
-        } else {
-          menu.classList.add('show');
-          overlay.classList.add('show');
-        }
-      }
+      // Другие скрипты, которые должны выполняться после загрузки DOM
     });
   </script>
 </body>
