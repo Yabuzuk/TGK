@@ -17,7 +17,6 @@ body {
   margin-left: auto;
   margin-right: auto;
   border: none;
-  width: 340px; /* Установленная ширина */
 }
 
 .google-btn {
@@ -31,7 +30,6 @@ body {
   display: inline-block;
   margin: 10px 0;
   cursor: pointer;
-  width: 340px; /* Установленная ширина */
 }
 .google-btn:hover {
   background: #e74b37;
@@ -44,7 +42,7 @@ form {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   margin-bottom: 0px;
   border: 1px solid #dfe6e9;
-  width: 340px; /* Установленная ширина */
+  width: 320px;
 }
 input, textarea, button, select {
   font-family: 'Roboto', sans-serif;
@@ -53,8 +51,9 @@ input, textarea, button, select {
   border-radius: 5px;
   border: 1px solid #dfe6e9;
   padding: 7px;
-  width: 340px; /* Установленная ширина */
+  width: calc(100% - 18px);
   box-sizing: border-box;
+  width: 100%;
 }
 button {
   background-color: var(--tg-blue);
@@ -62,7 +61,7 @@ button {
   font-weight: bold;
   border: none;
   cursor: pointer;
-  width: 340px; /* Установленная ширина */
+  width: 100%;
 }
 button:hover {
   background-color: #0099e6;
@@ -84,7 +83,7 @@ button:hover {
   background-color: #fefefe00;
   margin: 2% auto;
   padding: 20px;
-  width: 340px; /* Установленная ширина */
+  width: 320px;
 }
 .close {
   color: #aaa;
@@ -106,7 +105,6 @@ button:hover {
   margin-bottom: 20px;
   padding: 9px;
   font-size: 0.8em;
-  width: 340px; /* Установленная ширина */
 }
 .role-button {
   flex: 1;
@@ -115,7 +113,6 @@ button:hover {
   color: white;
   padding: 9px;
   font-size: 0.8em;
-  width: 340px; /* Установленная ширина */
 }
 .role-button:last-child {
   margin-right: 0;
@@ -127,35 +124,30 @@ button:hover {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-  width: 340px; /* Установленная ширина */
 }
 .search-container input[type="text"] {
   flex: 1;
   margin-right: 5px;
-  width: 340px; /* Установленная ширина */
 }
 .search-container input[type="text"]:last-child {
   margin-right: 0;
 }
 .contact-highlight {
   color: var(--contact-highlight-color); /* Использование переменной для цвета */
-  width: 340px; /* Установленная ширина */
 }
 .contact-highlight {
   color: #3498db; /* Вы можете изменить код цвета на предпочитаемый */
-  width: 340px; /* Установленная ширина */
 }
 
 .carousel-image {
   display: none;
-  width: 340px; /* Установленная ширина */
+  width: 100%;
   border-radius: 5px;
   height: auto;
 }
 
 .carousel-image.active {
   display: block;
-  width: 340px; /* Установленная ширина */
 }
 
 .container,
@@ -168,8 +160,10 @@ button:hover {
   border: 0px black solid;
   padding: 10px;
   cursor: pointer;
+
   margin-bottom: 10px; /* Добавлен отступ снизу для контейнера */
-  width: 340px; /* Установленная ширина */
+  width: 100%; /* Установленная ширина блока */
+  max-width: 320px; /* Максимальная ширина блока */
 }
 #contactInfo {
   display: none; /* Изначально скрыто */
@@ -179,7 +173,8 @@ button:hover {
   border-radius: 10px;
   margin-top: 0; /* Убран отступ сверху */
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
-  width: 340px; /* Установленная ширина */
+  width: 100%; /* Установленная ширина блока */
+  max-width: 320px; /* Максимальная ширина блока */
 }
 .left-section {
   width: 46px;
@@ -202,7 +197,6 @@ button:hover {
   align-items: flex-start;
   flex: 1; /* Добавлено для предотвращения наложения */
   margin-left: 5px; /* Добавлен отступ слева */
-  width: 340px; /* Установленная ширина */
 }
 
 .role {
@@ -221,7 +215,6 @@ button:hover {
   letter-spacing: 0.06px;
   word-wrap: break-word;
   margin-bottom: 5px;
-  width: 340px; /* Установленная ширина */
 }
 
 .MoscowBeijing,
@@ -231,7 +224,6 @@ button:hover {
 .Kg {
   margin-bottom: 5px;
   text-align: left;
-  width: 340px; /* Установленная ширина */
 }
 
 .MoscowBeijing {
@@ -273,7 +265,6 @@ button:hover {
   border-radius: 10px;
   margin-top: 0; /* Убран отступ сверху */
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
-  width: 340px; /* Установленная ширина */
 }
 
 .contact-text {
@@ -285,7 +276,6 @@ button:hover {
   text-align: center;
   margin-bottom: 0px;
   margin-top: 0;
-  width: 340px; /* Установленная ширина */
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Muli&display=swap");
@@ -303,13 +293,12 @@ body.no-background {
   height: 100vh;
   margin: 0;
   flex-direction: column;
-  width: 340px; /* Установленная ширина */
 }
 
 nav {
   background-color: #fff;
   padding: 20px;
-  width: 340px; /* Установленная ширина */
+  width: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -319,7 +308,7 @@ nav {
 }
 
 nav.active {
-  width: 340px; /* Установленная ширина */
+  width: 350px;
 }
 
 nav ul {
@@ -327,13 +316,13 @@ nav ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  width: 340px; /* Установленная ширина */
+  width: 0;
   transition: width 0.6s linear;
   overflow-x: hidden;
 }
 
 nav.active ul {
-  width: 340px; /* Установленная ширина */
+  width: 100%;
 }
 
 nav ul li {
@@ -352,7 +341,6 @@ nav ul a {
   color: #000;
   text-decoration: none;
   margin: 0 10px;
-  width: 340px; /* Установленная ширина */
 }
 
 .icon {
