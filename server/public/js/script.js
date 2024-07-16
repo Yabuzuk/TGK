@@ -1,3 +1,12 @@
+function setRole(role, element) {
+  document.getElementById('roleInput').value = role;
+  const buttons = document.querySelectorAll('.role-button');
+  buttons.forEach(button => {
+    button.classList.remove('active');
+  });
+  element.classList.add('active');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   fetch('https://yabuzuk-tgk-ea4b.twc1.net/api/items')
     .then(response => response.json())
@@ -125,25 +134,21 @@ document.addEventListener('DOMContentLoaded', function() {
 function createImageCarousel(images) {
   const carouselContainer = document.getElementById('carouselContainer');
   images.forEach((image, index) => {
-    let imgElement = document.createElement('img');
-    imgElement.src = `images/${image}`;
+        let imgElement = document.createElement('img');
+    imgElement.src = image;
     imgElement.classList.add('carousel-image');
-    if (index === 0) imgElement.classList.add('active');
+    if (index === 0) {
+      imgElement.classList.add('active');
+    }
     carouselContainer.appendChild(imgElement);
   });
 
   let currentIndex = 0;
-  const totalImages = images.length;
   setInterval(() => {
     const images = document.querySelectorAll('.carousel-image');
     images[currentIndex].classList.remove('active');
-    currentIndex = (currentIndex + 1) % totalImages;
+    currentIndex = (currentIndex + 1) % images.length;
     images[currentIndex].classList.add('active');
-  }, 3000); // Изменение каждые 3 секунды
+  }, 3000); // Меняем изображение каждые 3 секунды
 }
 
-// Запрос к серверу для получения списка изображений
-fetch('/images')
-  .then(response => response.json())
-  .then(images => createImageCarousel(images))
-  .catch(error => console.error('Ошибка:', error));
