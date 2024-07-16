@@ -141,14 +141,18 @@ button:hover {
 
 .carousel-image {
   display: none;
-  width: 100%;
+  width: calc(100% - 10px); /* Уменьшенная ширина на 10px для отступов */
   border-radius: 5px;
   height: auto;
+  margin: 0 5px; /* Отступы по 5px с каждой стороны */
 }
 
 .carousel-image.active {
   display: block;
+  width: calc(100% - 10px); /* Уменьшенная ширина на 10px для отступов */
+  margin: 0 5px; /* Отступы по 5px с каждой стороны */
 }
+
 
 .container,
 #contactInfo { /* Общие стили для контейнера и контактной информации */
@@ -160,10 +164,10 @@ button:hover {
   border: 0px black solid;
   padding: 10px;
   cursor: pointer;
-
   margin-bottom: 10px; /* Добавлен отступ снизу для контейнера */
-  width: 100%; /* Установленная ширина блока */
+  width: calc(100% - 10px); /* Уменьшенная ширина на 10px для отступов */
   max-width: 340px; /* Максимальная ширина блока */
+  margin: 0 5px; /* Отступы по 5px с каждой стороны */
 }
 #contactInfo {
   display: none; /* Изначально скрыто */
@@ -173,8 +177,9 @@ button:hover {
   border-radius: 10px;
   margin-top: 0; /* Убран отступ сверху */
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
-  width: 100%; /* Установленная ширина блока */
+  width: calc(100% - 10px); /* Уменьшенная ширина на 10px для отступов */
   max-width: 340px; /* Максимальная ширина блока */
+  margin: 0 5px; /* Отступы по 5px с каждой стороны */
 }
 .left-section {
   width: 46px;
