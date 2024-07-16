@@ -149,4 +149,7 @@ fetch('/images')
   .then(images => createImageCarousel(images))
   .catch(error => console.error('Ошибка:', error));
 
+const toggle = document.getElementById("toggle");
+const nav = document.getElementById("nav");
 
+toggle.addEventListener("click", () => nav.classList.toggle("active"));
