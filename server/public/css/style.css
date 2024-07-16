@@ -42,7 +42,7 @@ form {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   margin-bottom: 0px;
   border: 1px solid #dfe6e9;
-  width: 340px;
+  width: 360px;
 }
 input, textarea, button, select {
   font-family: 'Roboto', sans-serif;
@@ -163,7 +163,7 @@ button:hover {
 
   margin-bottom: 10px; /* Добавлен отступ снизу для контейнера */
   width: 100%; /* Установленная ширина блока */
-  max-width: 340px; /* Максимальная ширина блока */
+  max-width: 360px; /* Максимальная ширина блока */
 }
 #contactInfo {
   display: none; /* Изначально скрыто */
@@ -174,7 +174,7 @@ button:hover {
   margin-top: 0; /* Убран отступ сверху */
   cursor: default; /* Стандартный курсор, так как это не кликабельный элемент */
   width: 100%; /* Установленная ширина блока */
-  max-width: 340px; /* Максимальная ширина блока */
+  max-width: 360px; /* Максимальная ширина блока */
 }
 .left-section {
   width: 46px;
