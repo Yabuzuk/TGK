@@ -186,3 +186,26 @@ function selectSuggestion(inputId, value) {
   document.getElementById(inputId).value = value;
   document.getElementById(inputId + 'Suggestions').innerHTML = '';
 }
+async function searchLocation(inputId, suggestionsId) {
+  const query = document.getElementById(inputId).value;
+  if (query.length < 3) {
+    document.getElementById(suggestionsId).innerHTML = '';
+    return;
+  }
+
+  const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&addressdetails=1`);
+  const data = await response.json();
+
+  const cityNames = data
+    .filter(item => item.address && item.address.city)
+    .map(item => item.address.city)
+    .filter((value, index, self) => self.indexOf(value) === index); // Удаление дубликатов
+
+  const suggestions = cityNames.map(city => `<div onclick="selectSuggestion('${inputId}', '${city}')">${city}</div>`).join('');
+  document.getElementById(suggestionsId).innerHTML = suggestions;
+}
+
+function selectSuggestion(inputId, value) {
+  document.getElementById(inputId).value = value;
+  document.getElementById(inputId + 'Suggestions').innerHTML = '';
+}
