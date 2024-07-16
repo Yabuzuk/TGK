@@ -12,7 +12,7 @@ body {
   font-weight: 300;
   color: #000; /* Изменил на стандартный черный цвет текста */
   margin: 0;
-  padding: 5px;
+  padding: 0px;
   max-width: 340px;
   margin-left: auto;
   margin-right: auto;
