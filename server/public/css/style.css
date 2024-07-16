@@ -353,8 +353,10 @@ nav ul a {
   width: 30px;
 }
 
-.icon:focus {
-  outline: 0;
+.icon:focus,
+.icon:active {
+  outline: none;
+  box-shadow: none;
 }
 
 .icon .line {
