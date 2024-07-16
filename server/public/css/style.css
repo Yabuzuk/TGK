@@ -118,7 +118,7 @@ button:hover {
   margin-right: 0;
 }
 .role-button.active {
-  background-color: #006699;
+  background-color: #006699; /* Темный цвет для активной кнопки */
 }
 .search-container {
   display: flex;
@@ -349,3 +349,4 @@ nav ul li a:hover {
     display: flex;
   }
 }
+
