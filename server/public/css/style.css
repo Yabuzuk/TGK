@@ -351,14 +351,15 @@ nav ul a {
   position: relative;
   height: 30px;
   width: 30px;
+  outline: none; /* Убирает выделение */
+  box-shadow: none; /* Убирает тень */
 }
 
 .icon:focus,
 .icon:active {
-  outline: none;
-  box-shadow: none;
+  outline: none; /* Убирает выделение при фокусе */
+  box-shadow: none; /* Убирает тень при фокусе */
 }
-
 .icon .line {
   background-color: #5290f9;
   height: 2px;
