@@ -2,39 +2,66 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Вход</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    h1 {
-      color: #333;
-    }
-    a {
-      text-decoration: none;
-      color: white;
-      background-color: #1a73e8;
-      padding: 10px 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      transition: background-color 0.3s;
-    }
-    a:hover {
-      background-color: #0c47a1;
-    }
-  </style>
+  <title>Форма отправки данных о грузоперевозках</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="login-container">
-    <h1>Вход</h1>
-    <a href="/auth/google">Войти с помощью Google</a>
+
+
+<a href="#" class="menu-item"><script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="p2pmail_bot" data-size="small" data-radius="5" data-onauth="onTelegramAuth(user)" data-request-access="write"></script></a>
+ 
+  <br>
+  <div id="carouselContainer"></div>
+  <br>
+
+<!--  <button id="myBtn">+ Добавить заказ</button>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+<form id="myForm" action="https://yabuzuk-tgk-ea4b.twc1.net/additem" method="post">
+  <input type="hidden" id="roleInput" name="role">
+  <div class="role-buttons">
+    <button type="button" class="role-button" onclick="setRole('Отправлю', this)">Отправить</button>
+    <button type="button" class="role-button" onclick="setRole('Увезу', this)">Увезти</button>
   </div>
+  <input type="text" id="from" name="from" placeholder="Откуда" oninput="searchLocation('from', 'fromSuggestions')" required>
+  <div id="fromSuggestions" class="suggestions"></div>
+  <input type="text" id="to" name="to" placeholder="Куда" oninput="searchLocation('to', 'toSuggestions')" required>
+  <div id="toSuggestions" class="suggestions"></div>
+  <input type="date" name="date" required>
+  <input type="number" name="price" placeholder="Цена" required>
+  <input type="text" name="weight" placeholder="Вес" required>
+  <input type="text" name="contact" placeholder="Контакт" required>
+  <textarea name="message" placeholder="Сообщение"></textarea>
+  <button type="submit">Отправить</button>
+</form>
+    </div>
+  </div> -->
+  <div id="profileContainer" style="display: none;">
+    <img id="userImage" src="" alt="Фото профиля" />
+    <h3 id="userName"></h3>
+    <p id="userEmail"></p>
+    <a href="/logout" class="logout-btn">Выйти</a>
+  </div>
+  <div class="search-container">
+    <input type="text" id="searchFrom" placeholder="Откуда" oninput="searchLocation('searchFrom', 'fromSuggestions')">
+    <div id="fromSuggestions" class="suggestions"></div>
+    <input type="text" id="searchTo" placeholder="Куда" oninput="searchLocation('searchTo', 'toSuggestions')">
+    <div id="toSuggestions" class="suggestions"></div>
+  </div>
+  <div id="itemsContainer"></div>
+  <br>
+  <script src="js/script.js"></script>
+  <script type="text/javascript">
+    function onTelegramAuth(user) {
+      alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+    }
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Другие скрипты, которые должны выполняться после загрузки DOM
+    });
+  </script>
 </body>
 </html>
