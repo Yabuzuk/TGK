@@ -28,7 +28,7 @@ const ItemSchema = new mongoose.Schema({
 const Item = mongoose.model('Item', ItemSchema);
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.post('/additem', (req, res) => {
