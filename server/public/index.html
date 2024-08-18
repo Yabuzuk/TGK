@@ -10,7 +10,16 @@
 
 
 <a href="#" class="menu-item"><script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="p2pmail_bot" data-size="small" data-radius="5" data-onauth="onTelegramAuth(user)" data-request-access="write"></script></a>
- 
+ <!-- Личный кабинет -->
+<div id="profileContainer" style="display: none;">
+  <img id="userImage" src="" alt="Фото профиля" />
+  <h3 id="userName"></h3>
+  <p id="userEmail"></p>
+  <a href="/logout" class="logout-btn">Выйти</a>
+</div>
+
+<!-- Кнопка удаления -->
+<button onclick="deleteItem('itemId')">Удалить</button>
   <br>
   <div id="carouselContainer"></div>
   <br>
