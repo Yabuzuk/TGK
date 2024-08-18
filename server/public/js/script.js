@@ -8,6 +8,35 @@ function setRole(role, element) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Получение информации о пользователе
+  if (document.getElementById('profileContainer')) {
+    fetch('/api/user')
+      .then(response => response.json())
+      .then(user => {
+        document.getElementById('userName').textContent = user.username;
+        document.getElementById('profileContainer').style.display = 'block';
+      })
+      .catch(error => console.error('Ошибка:', error));
+  }
+
+  // Обработка удаления заявки
+  window.deleteItem = function(itemId) {
+    fetch(`/deleteitem/${itemId}`, {
+      method: 'POST',
+    })
+      .then(response => {
+        if (response.ok) {
+          alert('Заявка удалена.');
+          location.reload(); // Обновление страницы
+        } else {
+          alert('Ошибка при удалении.');
+        }
+      })
+      .catch(error => console.error('Ошибка:', error));
+  };
+
+
+document.addEventListener('DOMContentLoaded', function() {
   fetch('https://yabuzuk-tgk-ea4b.twc1.net/api/items')
     .then(response => response.json())
     .then(items => {
